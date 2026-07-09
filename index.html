@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Projetos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container Principal - Comprimento menor (reduzido de 1200px para 900px) */
+        .slide {
+            width: 100%;
+            max-width: 900px; 
+            aspect-ratio: 16 / 9;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ddd;
+        }
+
+        /* Forma Vermelha no Topo (Onda) */
+        .top-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1;
+        }
+
+        /* Cabeçalho */
+        .header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            padding: 50px 45px 0 30px;
+        }
+
+        /* Logo Esquerda (Controladoria) */
+        .logo-controladoria {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-controladoria svg {
+            width: 45px;
+            height: 70px;
+            margin-right: -8px;
+        }
+
+        .logo-controladoria h2 {
+            color: #002060;
+            font-family: "Arial Narrow", "Arial", sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            transform: scaleY(1.2);
+        }
+
+        /* Logo Direita (DIA A DIA) */
+        .logo-dia-a-dia {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -20px;
+        }
+
+        .balao-azul {
+            background-color: #284c8a;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 4px 12px;
+            border-radius: 10px;
+            margin-bottom: 3px;
+            margin-left: 40px;
+            position: relative;
+        }
+        
+        .balao-azul::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 10px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #284c8a;
+        }
+
+        .dia-texto {
+            color: #e31b23;
+            font-family: "Arial Black", Impact, sans-serif;
+            font-size: 50px;
+            line-height: 1;
+            letter-spacing: -1.5px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .dia-texto .letra-a {
+            font-size: 24px;
+            transform: translateY(-6px);
+        }
+
+        .linha-vermelha {
+            width: 95%;
+            height: 3px;
+            background-color: #e31b23;
+            margin-top: 4px;
+        }
+
+        /* Conteúdo Central */
+        .content {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .title {
+            color: #002060;
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Transformado em Botão/Link e tamanho reduzido */
+        .subtitle-button {
+            display: block;
+            background-color: #002060;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none; /* Remove o sublinhado padrão de links */
+            padding: 20px 30px; /* Reduzido o preenchimento interno */
+            width: 45%; /* Reduzido de 50% para 45% */
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        /* Efeito de passar o mouse no botão */
+        .subtitle-button:hover {
+            background-color: #001845;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        /* Efeito ao clicar */
+        .subtitle-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        /* Rodapé Logo Menor */
+        .footer-logo {
+            position: absolute;
+            bottom: 25px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .footer-logo .dia-texto-small {
+            color: #e31b23;
+            font-family: "Arial Black", Impact, sans-serif;
+            font-size: 20px;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+        
+        .footer-logo .dia-texto-small .letra-a {
+            font-size: 10px;
+            transform: translateY(-2px);
+        }
+
+        .footer-logo .balao-azul-small {
+            background-color: #284c8a;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        /* Borda Azul Inferior */
+        .bottom-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: #5583cc;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide">
+        <svg class="top-wave" viewBox="0 0 1000 100" preserveAspectRatio="none">
+            <path d="M0,0 L1000,0 L1000,45 Q750,70 550,20 Q250,-15 0,40 Z" fill="#e31b23" />
+        </svg>
+
+        <div class="header">
+            <div class="logo-controladoria">
+                <svg viewBox="0 0 70 100">
+                    <g fill="#002060" transform="translate(60, 50)">
+                        <polygon points="0,0 -55,-35 -45,-45" />
+                        <polygon points="0,0 -60,-20 -50,-30" />
+                        <polygon points="0,0 -60,0 -55,-10" />
+                        <polygon points="0,0 -55,15 -60,5" />
+                        <polygon points="0,0 -45,35 -55,25" />
+                        <polygon points="0,0 -30,45 -40,40" />
+                        <polygon points="0,0 -15,45 -20,50" />
+                        
+                        <polygon points="0,0 -40,-45 -25,-55" />
+                        <polygon points="0,0 -20,-50 -10,-60" />
+                        <polygon points="0,0 0,-55 10,-55" />
+                        <polygon points="0,0 20,-45 25,-40" />
+                    </g>
+                </svg>
+                <h2>CONTROLADORIA</h2>
+            </div>
+
+            <div class="logo-dia-a-dia">
+                <div class="balao-azul">;DD</div>
+                <div class="dia-texto">
+                    DIA <span class="letra-a">A</span> DIA
+                </div>
+                <div class="linha-vermelha"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1 class="title">Controle de Projetos</h1>
+            
+            <a href="https://script.google.com/a/macros/atacadaodiaadia.com.br/s/AKfycbzKlO_69sv9TeDldV5yGdeddpT0cPWhUQQw-GsmgCs6dr59n2ZNsQGL-wZ80DgUf_W6iQ/exec" class="subtitle-button">
+                Controle de Orçamento / Alteração de data de Vencimento
+            </a>
+        </div>
+
+        <div class="footer-logo">
+            <div class="dia-texto-small">
+                DIA <span class="letra-a">A</span> DIA
+            </div>
+            <div class="balao-azul-small">;DD</div>
+        </div>
+
+        <div class="bottom-border"></div>
+    </div>
+
+</body>
+</html>
