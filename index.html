@@ -157,13 +157,19 @@
             font-weight: bold;
             text-decoration: none; /* Remove o sublinhado padrão de links */
             padding: 20px 30px; /* Reduzido o preenchimento interno */
-            width: 45%; /* Reduzido de 50% para 45% */
+            width: 50%; /* Largura ajustada para caber melhor os textos longos */
             max-width: 500px;
-            margin: 0 auto;
+            margin: 0 auto 25px auto; /* 25px de espaçamento inferior (margem) entre os botões */
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.15);
             transition: all 0.2s ease-in-out;
             cursor: pointer;
+            border-radius: 12px; /* BORDAS ARREDONDADAS ADICIONADAS AQUI */
+        }
+
+        /* Remove a margem do último botão para não empurrar o layout para baixo */
+        .subtitle-button:last-child {
+            margin-bottom: 0;
         }
 
         /* Efeito de passar o mouse no botão */
@@ -263,11 +269,16 @@
             </div>
         </div>
 
+        <!-- AMBOS OS BOTÕES AGORA ESTÃO DENTRO DESTA MESMA DIV -->
         <div class="content">
             <h1 class="title">Controle de Projetos</h1>
             
-            <a href="https://script.google.com/a/macros/atacadaodiaadia.com.br/s/AKfycbw_3Ki8PVAuvqIWapQi0xzsv6ljk4Z3rAsXlP8PIH__TYk8bnTG85p4KwNdO-akNnLu/exec" class="subtitle-button">
+            <a href="https://script.google.com/a/macros/atacadaodiaadia.com.br/s/AKfycbwsvFaBgDxHgerS5YxFNTZraw8RsqPblUnv5Pm6WHy7kXCjHu-D5bQSzyIr71m0k1VZJw/exec" class="subtitle-button">
                 Controle de Orçamento / Alteração de data de Vencimento
+            </a>
+            
+            <a href="https://script.google.com/a/macros/atacadaodiaadia.com.br/s/AKfycbzwVAaxsZZeN8ekI7zddsn6WIEm-tMuvZHVPGGEP8vIBF46hTgqBHeo4qtlHyoIFC0/exec" class="subtitle-button">
+                Controle e Consumo de ADF
             </a>
         </div>
 
